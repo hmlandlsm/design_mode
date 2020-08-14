@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+    <div id="result"></div>
+</body>
+</html>
+<script src="../js/es6.js"></script>
+<script>
+
+// 20200618 es6学习
+
+// 字符串的方法
+
+
+ 
+
+
+
+// 数组的方法
+
+let arrLike = {
+    0:'name',
+    1:'sex',
+    2:'nation'
+};
+// es5的写法
+var arr1 = [].slice.call(arrLike); // ['name','sex','nation'];
+// es6的写法
+var arr2 = Array.from(arrLike); //['name','sex','nation'];
+// 实际用法:1、将函数内部的arguments 对象转换为真正的数组hhh2、nodeList集合也是类数组模式
+let arrLike1 = document.querySelectorAll('p');
+Array.from(arrLike1).forEach((p)=> {
+    console.log(p);
+})
+
+function foo() {
+    let args = Array.from(arguments);
+}
+
+
+// 将字符串拆拆成数组
+Array.from('hello'); // ['h','e','l','l','o'];
+
+// ... 扩展运算
+[...document.querySelectorAll('p')];  //也是可以转成真正的数组的
+
+
+
+// ES6变量的结构赋值：从数组和对象中提取值，对变量进行赋值，还被称为结构
+
+
+
+
+// 使用严格相等运算符，（===），判断一个位置是否优质，
+
+var [x=1] = [null];  x ; // null
+var [x=1] = [undefined]; x; // 1;
+
+
+// 遍历Map结构
+var map = new Map();
+map.set('first','hello');
+map.set('second','world');
+
+for(let [key,value] of map) {
+    console.log(key + 'is' + value);
+}
+
+
+// ES6字符串的扩展
+
+for(let code of 'foo') {
+    console.log(code) // f,o,o
+}
+
+
+// es5提供了chartAt(),返回字符串给定位置的字符
+'abc'.charAt(0) ;  //a
+'诗敏'.charAt(0) ; // 诗
+
+// es6的方法 .....提案中。。。。差点没把我气死
+// 'abc'.at(0); //a
+// '诗敏'.at(0); //诗
+
+// 区别：该方法不能识别码点大于0xFFFF的字符。。。。
+
+// 返回布尔值
+// indexOf();
+// includes();
+// startsWith();
+// endsWith();
+
+// 将原字符串重复n次
+'na'.repeat(4); //'nananana'
+
+
+// 在前面或者后面补全,接收两个参数(长度，待补全字符串)
+// 字符串长度不够，重复凑；字符串长度太长，截取；
+'abc'.padStart(8,'1111');
+'abc'.padEnd(8,'2222');
+
+
+
+// 模板字符
+// 原本的：
+$('#result').append(
+    'There are <b>' + obj.count + '</b>' +
+    'items in your basket'
+);
+
+// es6
+$('result').append(
+    `
+    there are <b>${obj.count}</b> items in your basket;
+    `
+);
+
+
+// 模板编译
+var templete = `
+<ul>
+<% for(let i=0;i<arr.length;i++) {%>
+<li><%=arr[i]%></li>
+<% } %>
+</ul>
+`;
+
+
+
+
+
+
+</script>

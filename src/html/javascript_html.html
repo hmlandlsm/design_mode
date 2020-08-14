@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+    <!-- <div id='testId' class="test">测试this作为函数被调用</div> -->
+</body>
+<!-- <script src="../js/callAndApply.js"></script> -->
+
+</html>
+<style>
+    .test {
+        background: pink;
+    }
+</style>
+<script>
+    // 判断字符串出现次数最多的元素，并统计
+    let str = 'aaaaaadddddddhhhhgggkdkkdsladkslfjsfjksdf';
+    var obj = {};
+    for (let key in str) {
+        if (obj[str[key]]) {
+            obj[str[key]]++;
+        } else {
+            obj[str[key]] = 1;
+        }
+    }
+    // console.log(JSON.stringify(obj)); //{"a":7,"d":11,"h":4,"g":3,"k":5,"s":4,"l":2,"f":3,"j":2}
+    var max = 0;
+    var maxStr = '';
+    for(let key in obj) {
+        if(obj[key] > max) {
+            max = obj[key];
+            maxStr = key;
+        }
+    }
+    // console.log('出现次数最多的是'+ maxStr,'次数为' + max)
+
+    // 对数组去重
+    var arr1 = [1,1,1,2,3,4,5];
+    var res = new Set(arr1);
+    var resArr1 = [...new Set(arr1)];
+    console.log(JSON.stringify('newSet数组去重'+JSON.stringify(resArr1)));
+    console.log(arr1);
+    console.log(res);
+    console.log(resArr1);
+
+
+
+
+
+    // es6三个点的作用
+    // 1、等同于深拷贝
+    // 只有对象或单层数组的时候才等同深拷贝，数组嵌套对象的时候不可以
+    var bar = [1,2];
+    var baz = [...bar];
+    baz[0] = 10;
+
+    var bar1 = {c:2,d:3};
+    var baz2 = Object.assign({},bar1);
+    baz2.c = 8;
+
+
+
+
+    // 字符去重
+    console.log([...new Set('assdfffff')].join(''));
+
+
+    // 数组去重
+    // ... 的意思，就是将数组或者对象的值展开
+    console.log([...new Set([...new Set([1,2,4]),...new Set([3,4,5])])])
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

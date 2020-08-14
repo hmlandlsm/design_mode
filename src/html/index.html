@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    </head>
+    <!-- <script src="../js/index.js"></script> -->
+    <!-- <script src="../js/constructor.js"></script> -->
+
+    <body>
+        <div id='testId' class="test">11</div>
+    </body>
+    <!-- <script src="../js/callAndApply.js"></script> -->
+    <script src="../js/arr.js"></script>
+</html>
+<!-- <script>
+// 作为普通函数被调用3
+window.id = 'window';
+    document.getElementById("testId").onclick = function() {
+    // 不能执行
+    // document.getElementById("testId").οnclick = function() {
+    console.log('this.id:',this.id);
+    var callback = function() {
+        console.log('回调里的this.id:',this.id);
+    }
+    callback();
+}
+</script> -->
+<style>
+.test {
+    background: pink;
+}
+</style>

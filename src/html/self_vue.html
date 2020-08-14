@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <div id="app">
+        <h2>{{title}}</h2>
+        <input v-model="name">
+        <h1>{{name}}</h1>
+        <button @click="clickMe">Click me!</button>
+    </div>
+</html>
+<!-- 引入selfVue实例对象、监听器 -->
+<script src="../js/vue_index.js"></script>
+<script src="../js/vue_watcher.js"></script>
+<script src="../js/vue_observer.js"></script>
+
+<script>
+    new SelfVue({
+        el:'#app',
+        data:{
+            title:'hello min',
+            name:'敏宝'
+        },
+        methods:{
+            clickMe:function() {
+                this.title = 'hello luo';
+            }
+        },
+        mounted:function() {
+            setTimeout(()=> {
+                this.title = '一秒之后，不太好';
+            },1000);
+        }
+    })
+</script>
