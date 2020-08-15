@@ -30,47 +30,45 @@
 
 
 
-console.log('1-1');  //最先执行同步任务
-
-
+console.log('1');  //最先执行同步任务
 // 宏任务1
 setTimeout(function() {
-    console.log('2-5');
+    console.log('5');
     process.nextTick(function() {
-        console.log('3-9');
+        console.log('9');
     })
     new Promise(function(resolve) {
-        console.log('4-6');
+        console.log('6');
         resolve();
     }).then(function() { 
-        console.log('5-11')  //异步
+        console.log('11')  //异步
     })
 })
 
 process.nextTick(function() {
-    console.log('6-3');
+    console.log('3');
 })
 
 // 微任务
 new Promise(function(resolve) {
-    console.log('7-2');
+    console.log('2');
     resolve();
 }).then(function() {
-    console.log('8-4')
+    console.log('4')
 })
 
 
 // 宏任务2
 setTimeout(function() {
-    console.log('9-7');
+    console.log('7');
     process.nextTick(function() {
-        console.log('10-10');  //比同等的then先执行
+        console.log('10');  //比同等的then先执行
     })
     new Promise(function(resolve) {
-        console.log('11-8');
+        console.log('8');
         resolve();
     }).then(function() {
-        console.log('12-12')
+        console.log('12')
     })
 })
 
