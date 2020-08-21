@@ -2,9 +2,10 @@
 <!-- 参考链接：https://juejin.im/post/6844903902123393032 -->
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset='utf-8'>
-<title></title>
+    <meta charset='utf-8'>
+    <title></title>
 </head>
 <style>
     /* 1、负边距：左为负时：左移；右为负时：左拉 */
@@ -20,6 +21,7 @@
         height: 200px;
         border: 1px solid #000;
     }
+
     .box1 {
         width: 100px;
         height: 100px;
@@ -27,6 +29,7 @@
         background-color: aqua;
         float: left;
     }
+
     .box2 {
         width: 100px;
         height: 100px;
@@ -34,14 +37,58 @@
         background-color: plum;
         float: left;
     }
+
+    /* 三角形的样式 */
+
+    .a {
+        width: 0;
+        height: 0;
+        border-width: 100px;
+        border-style: solid;
+        border-color: transparent #0099CC transparent transparent;
+        transform: rotate(90deg);
+        /*顺时针旋转90°*/
+    }
 </style>
+
 <body>
+    <!-- 1、负边距 -->
     <!-- <div class="box">
         <div class="box1"></div>
         <div class="box2"></div>
     </div> -->
-  
+
+    <!-- 三角形 -->
+    <!-- <div class="a"></div> -->
+
+    <!-- label属性的好处 -->
+
+    <label for="username" accesskey＝"N">姓名</label><input id="username" type="text">
+    <input type="checkbox" id="a" value="haha" name="cn">
+    <label for="a">haha </label>
+    <input type="checkbox" id="b" value="hehe" name="cm">
+    <label for="b">hehe </label>
+
+
+
+    <!-- BFC （块级格式化上下文），是一个独立的渲染区域，让处于 BFC 内部的元素与外部的元素相互隔离，使内外元素的定位不会相互影响。
+    触发条件:
+
+    根元素
+    1、position: absolute/fixed
+    2、display: inline-block / table
+    3、float 元素
+    4、ovevflow !== visible
+
+
+    规则:
+    属于同一个 BFC 的两个相邻 Box 垂直排列
+    属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠
+    BFC 的区域不会与 float 的元素区域重叠
+    计算 BFC 的高度时，浮动子元素也参与计算
+    文字层不会被浮动层覆盖，环绕于周围 -->
 </body>
+
 </html>
 
 <!-- <script src='./index.js'></script> -->

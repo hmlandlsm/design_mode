@@ -108,3 +108,19 @@ function now() {
 // 全局环境中，this返回的是顶层对象
 // 在Node模块和ES6的模块中，this返回的是当前模块
 
+
+
+
+// 1到100的递归求和实现
+
+function add(num1,num2) {
+    let num = num1 + num2;
+    if(num2 + 1 > 100) {
+        return num;
+    }else {
+        return add(num,num2+1);
+    }
+}
+
+let num = add(1,2);
+// (1+100)*50/2 == 5050;
