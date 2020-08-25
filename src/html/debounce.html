@@ -37,7 +37,7 @@
       function throttle(fun,delay) {
         let run = true;
         return function () {
-          if(!true) return;
+          if(!run) return;
           run = false;
           setTimeout(()=> {
             fun.apply(this,arguments);

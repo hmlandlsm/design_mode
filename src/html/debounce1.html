@@ -1,0 +1,39 @@
+<!-- 实现一个前端的性能优化 -->
+
+<!-- 
+    场景：
+    控制用户过于频繁点击请求
+
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>性能优化</title>
+</head>
+<body>
+    <button onclick="handle()">有本事你按啊</button>
+</body>
+</html>
+<script>
+
+
+// 每三秒执行一次函数fn
+function middleHandle(fn,delay) {
+    let run = true;
+    return function() {
+        if(!run) return;
+        run = false;
+        setTimeout(() => {
+            // fn.apply(this,arguments)
+            fu();
+            run = true;
+        },delay)
+    }
+}
+
+let fn = function() {
+    console.log('被惦记了')
+}
+let handle = middleHandle(fn,3000)
+</script>
