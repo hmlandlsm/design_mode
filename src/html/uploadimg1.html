@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>显示选择图片的缩略图</title>
+	<style>
+		#dropbox {
+		width: 400px;
+		height: 70px;
+		line-height: 70px;
+		text-align: center;
+		border: 2px dashed #999;
+		border-radius: 5px;
+		background: #fbfbfb;
+		color: #666;
+	}
+
+	#preview>img {
+		height: 80px;
+		margin: 7px;
+		border: 1px solid #666;
+		border-radius: 4px;
+		box-shadow: 3px 3px 3px #bbb;
+	}
+	#outbox{
+		display: inline-block;
+		position: relative;
+		overflow: hidden;
+	}
+	#imgUpload{
+		position: absolute;
+		left: 0px;
+		font-size: 60px;
+		opacity: 0;
+	}
+	</style>
+</head>
+
+<body>
+	<div id="outbox">
+		<div id="dropbox">
+			<input id="imgUpload" type="file" multiple="multiple">
+			<span>点击或将单个/多个图片拖放到此处</span>
+		</div>
+	</div>
+	<div id="preview"></div>
+	<script>
+	var dropbox, imgUpload;
+
+	dropbox = document.getElementById("dropbox");
+	dropbox.addEventListener("dragenter", dragenter, false);
+	dropbox.addEventListener("dragover", dragover, false);
+	dropbox.addEventListener("dragleave", dragleave, false);
+	dropbox.addEventListener("drop", drop, false);
+
+	imgUpload = document.getElementById("imgUpload");
+	imgUpload.addEventListener("change", readFile, false)
+
+	// 目标进入drop区域
+	function dragenter(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		dropbox.style.background = '#666'
+	}
+	// 目标位于drop区域上方
+	function dragover(e) {
+		e.stopPropagation();
+		e.preventDefault();
+	}
+	// 目标离开drop区域
+	function dragleave(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		dropbox.style.background = '#fbfbfb';
+	}
+	// 目标在drop区域被释放/放置（松开鼠标）
+	function drop(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		dropbox.style.background = '#fbfbfb';
+
+		var dt = e.dataTransfer;
+		var files = dt.files;
+
+		handleFiles(files);
+	}
+	// 点击上传文件后的方法
+	function readFile() {
+		handleFiles(this.files);
+	}
+
+	function handleFiles(files) {
+		// ... // 这里写上传文件的方法
+        console.log(files)
+		alert( '文件已上传...')
+	}
+	</script>
+</body>
+
+</html>

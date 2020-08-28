@@ -1,0 +1,77 @@
+<!-- 实现瀑布流 -->
+<!-- 未完全跑起来 -->
+<!-- 
+    实现思路：
+    1、计算页面的宽度
+    2、计算每行的个数
+    3、首行不需要绝对定位
+    4、第二行开始，绝对定位，left：高度最小索引*perWidth ；top：最小高度；然后高度进行累加
+ -->
+
+ <!-- 
+     注意点：必须等图片加载完成再执行，不然获取图片高度失败，函数会执行异常
+  -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+<script>
+  var colCount  
+  var colHeightArry= []  
+  var imgWidth = $('.waterfall img').outerWidth(true)   
+  colCount = parseInt($('.waterfall').width()/imgWidth)  
+  for(var i = 0 ; i < colCount; i ++){
+    colHeightArry[i] = 0
+  }
+  $('.waterfall img').on('load',function(){
+    var minValue = colHeightArry[0] 
+    var minIndex = 0  
+    for(var i = 0 ; i < colCount; i ++){
+      if(colHeightArry[i] < minValue){  
+        minValue = colHeightArry[i]  
+        minIndex = i  
+      }
+    }
+
+    $(this).css({
+      left: minIndex * imgWidth,
+      top: minValue
+    })
+    colHeightArry[minIndex] += $(this).outerHeight(true)
+  })
+
+
+
+  $(window).on('resize',function(){
+    reset()
+  })
+
+
+  //当窗口加载完毕，执行瀑布流
+  $(window).on('load',function(){
+    reset()
+  })
+
+  //定义reset函数
+  function reset(){
+    var colHeightArry= []
+    colCount = parseInt($('.waterfall').width()/imgWidth)
+    for(var i = 0 ; i < colCount; i ++){
+      colHeightArry[i] = 0
+    }
+    $('.waterfall img').each(function(){
+      var minValue = colHeightArry[0]
+      var minIndex = 0
+      for(var i = 0 ; i < colCount; i ++){
+        if(colHeightArry[i] < minValue){
+          minValue = colHeightArry[i]
+          minIndex = i
+        }
+      }
+
+      $(this).css({
+        left: minIndex * imgWidth,
+        top: minValue
+      })
+      colHeightArry[minIndex] += $(this).outerHeight(true)
+    })
+  }
+
+</script>

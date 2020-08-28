@@ -1,0 +1,53 @@
+<!-- 拖拽读取照片 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>拖拽上传照片</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+  </head>
+  <style>
+     * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    #box {
+      width: 600px;
+      height: 400px;
+      background: #ccc;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+    }
+    img {
+      width: 300px;
+      height: 200px;
+    }
+  </style>
+  <body>
+       
+    <div id="box"></div>
+      
+    <script>
+      var box = document.getElementById("box");
+      box.ondragover = function (e) {
+        e.preventDefault();
+      };
+      box.ondrop = function (e) {
+        e.preventDefault();
+        // console.log(e.dataTransfer.files[0]);
+        var f = e.dataTransfer.files[0]; //获取到第一个上传的文件对象
+        var fr = new FileReader(); //实例FileReader对象
+        fr.readAsDataURL(f); //把上传的文件对象转换成url
+        fr.onload = function (e) {
+          console.log(e); // var Url=e.target.result;//上传文件的URL
+          var Url = this.result; //上传文件的URL
+          box.innerHTML += '<img src="' + Url + '" alt="">';
+        };
+      };
+    </script>
+  </body>
+</html>

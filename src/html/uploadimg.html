@@ -1,0 +1,191 @@
+<!--  -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <style>
+    #drop_area {
+      border: 2px dashed silver;
+      width: 100%;
+      height: 200px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+    img {
+      width: 300px;
+      height: 200px;
+      background-size: 100% 100%;
+    }
+  </style>
+  <body>
+    <!-- <img src="./../img/1.JPG" draggable="true" ondragstart="drag(event)" /> -->
+    <div id="drop_area">
+      <div>将文件拖到此处，或<span class="upload-txt">点击上传</span></div>
+    </div>
+
+    <input type="file" id="fileInput" multiple="multiple" class="hidden" />
+  </body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+<script src="./../lib/layer/layer.js"></script>
+<script>
+  // 上传文件
+  document.addEventListener("drop", function (e) {
+    //拖离
+    e.preventDefault();
+  });
+  document.addEventListener("dragleave", function (e) {
+    //拖后放
+    e.preventDefault();
+  });
+  document.addEventListener("dragenter", function (e) {
+    //拖进
+    e.preventDefault();
+  });
+  document.addEventListener("dragover", function (e) {
+    //拖来拖去
+    e.preventDefault();
+  });
+  var uploadFileErrorMsg = [],
+    uploadFileSize = 0,
+    uploadFileIndex = 0,
+    startUploadFileFlag = false;
+  $("body").on("drop", "#drop_area", function (e) {
+    uploadFileErrorMsg = [];
+    uploadFileIndex = 0;
+    startUploadFileFlag = false;
+    var fileList = e.originalEvent.dataTransfer.files; //获取文件对象
+    if (fileList.length == 0) {
+      return false;
+    }
+    uploadFileSize = fileList.length;
+    for (var a = 0; a < fileList.length; a++) {
+      if (checkUploadFile(fileList[a])) {
+        startUploadFile(fileList[a]);
+      }
+    }
+  });
+  $("body").on("click", "#drop_area", function () {
+    $("#fileInput").click();
+  });
+  $("body").on("change", "#fileInput", function (el) {
+    uploadFileErrorMsg = [];
+    uploadFileIndex = 0;
+    startUploadFileFlag = false;
+    var fileList = el.target.files;
+    if (fileList.length == 0) {
+      return false;
+    }
+    uploadFileSize = fileList.length;
+    for (var a = 0; a < fileList.length; a++) {
+      if (checkUploadFile(fileList[a])) {
+        startUploadFile(fileList[a]);
+      }
+    }
+    if (!startUploadFileFlag && uploadFileErrorMsg.length) {
+      showErrorFileMsg(uploadFileErrorMsg, "文件上传失败！");
+    }
+  });
+  function showErrorFileMsg(uploadFileErrorMsg, title) {
+    var filteErrorHtml =
+      "<div class='error-file'>以下文件上传失败，请重新上传：<ul class='error-file-list'>";
+    for (var a = 0; a < uploadFileErrorMsg.length; a++) {
+      filteErrorHtml +=
+        "<li class='list-item'>" + uploadFileErrorMsg[a] + "</li>";
+    }
+    filteErrorHtml += "</ul></div>";
+    layer.open({
+      type: 0,
+      btnAlign: "c",
+      title: title,
+      area: ["420px", "240px"], //宽高
+      content: filteErrorHtml,
+    });
+  }
+  function checkUploadFile(file) {
+    var uploadType = [
+      "pdf",
+      "png",
+      "jpg",
+      "jpeg",
+      "bmp",
+      "gif",
+      "xls",
+      "xlsx",
+      "docx",
+      "doc",
+      "tif",
+      "rtf",
+    ];
+    var type = file.name.substr(1 + file.name.lastIndexOf(".")).toLowerCase();
+    var fileTypeOK = uploadType.indexOf(type) > -1;
+    var isLt5M = file.size / 1024 / 1024 < 5;
+    if (!fileTypeOK) {
+      uploadFileErrorMsg.push("【" + file.name + "】格式不支持");
+    }
+    if (!isLt5M) {
+      uploadFileErrorMsg.push("【" + file.name + "】文件超过5M了");
+    }
+    return fileTypeOK && isLt5M;
+  }
+  function createXHR() {
+    var xhr = null;
+    if (window.XMLHttpRequest) {
+      xhr = new XMLHttpRequest();
+    } //要是支持XMLHttpRequest的则采用XMLHttpRequest生成对象
+    else if (window.ActiveXobiect) {
+      xhr = new ActiveXobiect("Microsoft.XMLHTTP");
+    } //要是支持win的ActiveXobiect则采用ActiveXobiect生成对象。
+    return xhr;
+  }
+  function startUploadFile(files) {
+    startUploadFileFlag = true;
+    // var f = e.originalEvent.dataTransfer.files[0]; //获取到第一个上传的文件对象
+    var f = files[0];
+    var fr = new FileReader(); //实例FileReader对象
+    fr.readAsDataURL(f); //把上传的文件对象转换成url
+    fr.onload = function (e) {
+      console.log(e); // var Url=e.target.result;//上传文件的URL
+      var Url = this.result; //上传文件的URL
+      drop_area.innerHTML += '<img src="' + Url + '" alt="">';
+    };
+    // 接口读取
+    // var xhr = createXHR();
+    // var formData = new FormData();
+    // formData.append("uploadFile", files);
+    // formData.append("file", files);
+    // xhr.open(
+    //   "POST",
+    //   "${pageContext.request.contextPath}/jabil/file/uploadFile.do"
+    // );
+    // xhr.send(formData);
+    // var uploadFileLoading = layer.msg("文件上传中...");
+    // xhr.onreadystatechange = function () {
+    //   if (xhr.readyState == 4 && xhr.status == 200) {
+    //     uploadFileIndex++;
+    //     var res = JSON.parse(xhr.responseText);
+    //     vm.scmOrderVo.orderFileList.push(res.data[0]);
+    //     console.log("uploadFileIndex", uploadFileIndex);
+    //     console.log("uploadFileSize", uploadFileSize);
+    //     console.log("uploadFileErrorMsg.length", uploadFileErrorMsg.length);
+    //     if (uploadFileIndex === uploadFileSize - uploadFileErrorMsg.length) {
+    //       layer.close(uploadFileLoading);
+    //       if (uploadFileErrorMsg.length === 0) {
+    //         layer.msg("文件上传成功！");
+    //       } else {
+    //         showErrorFileMsg(uploadFileErrorMsg, "文件上传成功");
+    //       }
+    //     }
+    //   }
+    // };
+  }
+</script>
