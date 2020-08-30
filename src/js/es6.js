@@ -31,3 +31,14 @@ function selfish(target) {
 }
 
 const loggers = selfish(new Logger());
+
+
+
+// 数组扩展运算符...:
+// 可以用于数组合并
+var arr1 = [1,2,3];
+var arr2 = [3,4];
+var arr = [...arr1,...arr2];
+
+
+// 利用扩展运算符将伪数组转换为真正的数组
