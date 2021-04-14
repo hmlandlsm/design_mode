@@ -42,3 +42,37 @@ var arr = [...arr1,...arr2];
 
 
 // 利用扩展运算符将伪数组转换为真正的数组
+var value = {number:10};
+function multiple(x={...value}) {
+    console.log(x.number*=2);
+}
+
+multiple();  //20
+multiple();  //20
+multiple(value);  //20
+multiple(value);  //40
+
+
+
+
+
+// 错误例子
+var obj = {name:'罗诗敏',age:18};
+for(const item of obj) {
+    console.log(Object.keys(item));
+}
+
+
+// for(let ... of ...) 只能适用于数组（对象可能有不可枚举属性）
+
+// for(let ... in ...) 适用于对象
+
+
+
+// call、apply、bind
+/*
+fn.call(obj,a1,a2...) // 直接执行
+fn.apply(obj,[a1,a2,...])  // 直接执行
+fn.bind(obj,a1,a2...) //不会直接执行，而是需要再调用一次才会执行
+
+*/

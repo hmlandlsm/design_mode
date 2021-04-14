@@ -1,0 +1,160 @@
+<!-- https://zhuanlan.zhihu.com/p/72923073 -->
+<!DOCTYPE html>
+<html>
+  <style>
+    #box {
+      width: 1000px;
+      height: 500px;
+      background: #ccc;
+      font-size: 40px;
+      text-align: center;
+      line-height: 500px;
+    }
+  </style>
+
+  <div id="box"></div>
+  <script>
+    const box = document.getElementById("box");
+    function myThro(func, delay) {
+      let run = true;
+      return function () {
+        if (!run) return;
+        run = false;
+        setTimeout(() => {
+          func.apply(this, arguments);
+          run = true;
+        }, delay);
+      };
+    }
+    box.onmousemove = myThro(function (e) {
+      box.innerHTML = `${e.clientX},${e.clientY}`;
+    }, 3000);
+
+
+
+
+    
+    function debounce(func, delay) {
+      let timeout;
+      return function () {
+        // 持续触发不执行
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          func.apply(this, arguments);
+        }, delay);
+      };
+    }
+    box.onmousemove = debounce(function (e) {
+      box.innerHTML = `${e.clientX},${e.clientY}`;
+    }, 1000);
+
+    // 防抖
+    // function th1(func, delay) {
+    //   let run = true;
+    //   return function() {
+    //     if(!run) return;
+    //     setTimeout(function(){
+    //       func.apply(this);
+    //     },delay)
+    //   }
+    // }
+    // th1();
+
+
+
+    // function debounce(fun,delay) {
+    //   let timeout;
+    //   return function() {
+    //     clearInterval(timeout);
+    //     timeout = setTimeout(() =>{
+    //       fun.apply(this,arguments);
+    //     },delay);
+    //   }
+    // }
+
+
+
+    /*
+      防抖节流思路：
+      1、问题：监听鼠标移动事件，占用过多内存
+      2、设计：
+      ~ 监听到鼠标移动时，延迟三百毫秒再执行事件
+      ~如果在三百毫秒内，再次出发鼠标移动，则清除定时器，再重新计时三百毫秒
+      */
+    function throttle(func, delay) {
+      // let timeout;
+      return function () {
+        // if (timeout) return clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          func.apply(this, arguments);
+          clearTimeout(timeout);
+        }, delay);
+      };
+    }
+
+    /*
+    myThro:
+    实现防抖：
+    1、实现延迟
+    2、在延迟时间段内触发，则重新计算定时器
+    */
+    // function myThro(func, delay) {
+    //   let timeout;
+    //   return function () {
+    //     if (timeout) clearTimeout(timeout);
+    //     timeout = setTimeout(() => {
+    //       func.apply(this, arguments);
+    //       clearTimeout(timeout);
+    //     }, delay);
+    //   };
+    // }
+    /*
+    2、实现节流：如果一直触发事件而不执行的话，不友好，
+    所以超过某个时间段之后，执行一次
+    这就叫做有节制地执行
+
+    所有目的就是：持续触发并不会触发多次，而是到一定时间内再去执行
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 例子1：
+    // 节流(用到闭包的知识，)
+    // function throttle(fun,delay) {
+    //   let run = true;
+    //   return function () {
+    //     if(!run) return;
+    //     run = false;
+    //     setTimeout(()=> {
+    //       fun.apply(this,arguments);
+    //       run = true;
+    //     },delay)
+    //   }
+    // }
+
+    // box.onmousemove = throttle(function (e) {
+    //   box.innerHTML = `${e.clientX}`,`${e.clientY}`;
+    // },300);
+
+
+    var checktype = Object.prototype.toString.bind();
+    var type = checktype([]).replace(/\[object|\]|s/g,"").toLowerCase();
+    type; // undefined
+
+    Object.prototype.toString.call(Array.prototype).replace(/\[object|\]|s/g,'').toLowerCase();
+    // array
+  </script>
+</html>

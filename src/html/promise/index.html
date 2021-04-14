@@ -7,4 +7,57 @@
 </head>
 <body></body>
 </html>
-<script src='../../js/promise/promise.js'></script>
+<!-- <script src='../../js/promise/promise.js'></script> -->
+<script>
+// 3、all的方法：所有异步操作执行完成后，才执行回调
+
+function run1() {
+    let p1 = new Promise(function(resolve,reject) {
+        console.log('第一个异步')
+        resolve('11')
+    }).then((res) => {
+        console.log(res);
+        return new Promise(function(resolve,reject) {
+            resolve('aaaaaaa')
+        })
+    })
+    return p1;
+}
+
+function run2() {
+    let p2 = new Promise(function(resolve,reject) {
+        console.log('第二个异步')
+        resolve('22')
+    }).then((res) => {
+        console.log(res);
+        return new Promise(function(resolve,reject) {
+            resolve('bbbbbb')
+        })
+    })
+    return p2;
+}
+
+function run3() {
+    let p3 = new Promise(function(resolve,reject) {
+        console.log('第三个异步')
+        resolve('33')
+    }).then((res) => {
+        console.log(res);
+        return new Promise(function(resolve,reject) {
+            resolve('ccccccc')
+        })
+    })
+    return p3;
+}
+
+// Promise.all([run1(),run2(),run3()]).then((res) => {
+//     console.log(res)
+// })
+
+
+
+// 4、race方法：(输出最快的那个，就是aaaa)
+Promise.race([run1(),run2(),run3()]).then((res)=> {
+    console.log(res)
+})
+</script>

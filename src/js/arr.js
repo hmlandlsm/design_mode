@@ -105,3 +105,55 @@ console.log(findArr.find2(i => i == 2));
 
 // 6、every
 // 7、reduce
+
+var arr = [1,2,3,4,5];
+arr.reduce((a,b) => {
+console.log(a,b);
+// return a+1;
+})
+
+// a,b分别代表的是第一、第二个需要比较的数
+// 但是第一个数是需要return回去的，没有return回去的话是undefined
+
+
+
+// 展开运算符：
+const rrr = [1,2,3,4,5];
+const [...h] = rrr;  // h:[1,2,3,4,5]
+const [y] = arr;  //y:1
+
+
+
+
+// 删除数组项的方法：
+// 替换、删除
+arr.splice(index,len,[item]);
+/*
+会改变原数组
+包括开始索引，不包括结束索引
+*/
+
+delete arr[index];
+
+
+// 不改变原数组
+arr.slice();
+arr.shift();
+arr.pop();
+
+
+
+
+
+// 数组去重的方法：
+
+
+
+// 字符串去重的方法：
+
+
+
+// 哪些数组方法会改变原数组的，哪些不会的，这个要统一一下
+
+
+

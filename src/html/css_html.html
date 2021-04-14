@@ -1,0 +1,60 @@
+<!-- 一些效果的按钮等 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title></title>
+</head>
+<style>
+    body {
+        width: 100vh;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    /* 小心脏跳到鸭 */
+    .heart {
+        width: 200px;
+        height: 200px;
+        background: red;
+        transform: rotate(45deg) scale(0.5);
+        animation-name: jump;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        animation-direction: all;
+    }
+    .heart::before {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: red;
+        position: absolute;
+        content: '';
+        transform: translateX(-100px);
+    }
+    .heart::after {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        position: absolute;
+        content: '';
+        background: red;
+        transform: translateY(-100px);
+    }
+    @keyframes jump {
+        25% {
+            transform:scale(0.2) rotate(45deg);
+        }
+        50% {
+            transform:scale(0.5) rotate(45deg);
+        }
+        75% {
+            transform:scale(0.2) rotate(45deg);
+        }
+    }
+</style>
+<body>
+    <div class="heart"></div>
+</body>
+</html>

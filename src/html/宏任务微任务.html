@@ -1,0 +1,50 @@
+<!--  -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>宏任务微任务执行</title>
+</head>
+<body></body>
+</html>
+<script>
+
+
+//最先执行同步任务
+console.log("1"); 
+// 宏任务1
+setTimeout(function () {
+  console.log("5");
+  new Promise(function (resolve) {
+    console.log("6");
+    resolve('61');
+  }).then(function (res) {
+    console.log(res); //异步
+    return new Promise((function(resolve, reject) {
+      resolve('62')
+    }))
+  }).then(res => {
+    console.log(res)
+  })
+});
+
+// 微任务
+new Promise(function (resolve) {
+  console.log("2");
+  resolve();
+}).then(function () {
+  console.log("4");
+});
+
+// 宏任务2
+setTimeout(function () {
+  console.log("7");
+  new Promise(function (resolve) {
+    console.log("8");
+    resolve();
+  }).then(function () {
+    console.log("9");
+  });
+});
+console.log("3");
+</script>

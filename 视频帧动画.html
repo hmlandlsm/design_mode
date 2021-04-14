@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>oss-video-demo</title>
+  <style>
+    .sprite-wrapper {
+      width: 400px;
+      height: 300px;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="sprite-wrapper">
+      <div id="sprite"></div>
+    </div>
+  </div>
+  <script>
+    const resource = {
+      "title": "测试视频",
+      "cover": "http://retaildata.oss-cn-shanghai.aliyuncs.com/root/dollar/dev/test-video-video1-cover.jpeg",
+      "videoSrc": "http://retaildata.oss-cn-shanghai.aliyuncs.com/root/dollar/dev/test-video-video1.mp4",
+      "spriteSrc": "http://retaildata.oss-cn-shanghai.aliyuncs.com/root/dollar/dev/test-video-video1-sprite-90.jpeg",
+      "id": "7d1f51b9d6b6f299ceff851e02833208",
+      "createdTime": "2020-11-18 11:49:33",
+      "updatedTime": "2020-11-18 11:49:33"
+    }
+    const el = document.getElementById('sprite')
+    const reg = /sprite-(.*)\./
+    const frameCount = reg.exec(resource.spriteSrc)[1]
+    createSpriteDOM({
+      el,
+      spriteURL: resource.spriteSrc,
+      counts: frameCount,
+      duration: 2,
+    })
+
+    function createSpriteDOM({
+      el,
+      spriteURL,
+      counts,
+      duration
+    }) {
+      const gap = 5
+      const img = new Image()
+      img.src = spriteURL
+      img.onload = () => {
+        const spriteItemWidth = (img.width / counts) - (2 * gap)
+        const spriteItemHeight = img.height - (2 * gap)
+
+        // 创建动画 @keyframe
+        const id = `_frame-${Date.now()}`
+        const keyframes = document.createElement('style')
+        keyframes.innerHTML = `
+          @keyframes ${id} {
+              from {
+                  background-position: -${gap}px -${gap}px;
+              }
+              to {
+                  background-position: -${img.width - spriteItemWidth -gap}px -${gap}px;
+              }
+          }
+    `
+        document.body.appendChild(keyframes)
+        let rect = el.parentNode.getBoundingClientRect()
+        console.log('rect', rect)
+        // 设置样式
+        el.style.cssText = `
+        background-image: url(${spriteURL});
+        background-size: ${img.width}px ${img.height}px;
+        width: ${spriteItemWidth}px;
+        height: ${spriteItemHeight}px;
+        background-repeat: no-repeat;
+        transform: scale3d(${rect.width/spriteItemWidth}, ${rect.height/spriteItemHeight}, 1);
+        transform-origin: 0 0;
+        animation: ${id} ${duration}s steps(${counts - 1}) infinite;
+    `
+      }
+    }
+  </script>
+</body>
+
+</html>

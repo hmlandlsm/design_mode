@@ -1,0 +1,15 @@
+<!--  -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title></title>
+</head>
+<body></body>
+</html>
+<script>
+    // 新建一个worker()构造函数
+    var worker = new Worker('work.js')
+    worker.postMessage('Hello World')
+    worker.postMessage({method: 'echo', args: ['Work']})
+</script>
