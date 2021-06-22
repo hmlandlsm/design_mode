@@ -1,0 +1,163 @@
+<!--  -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title></title>
+</head>
+
+<body></body>
+
+</html>
+<script>
+    // 题目1：编写一个 People 类，使其的实例具有监听事件、触发事件、解除绑定功能。
+    //（实例可能监听多个不同的事件，也可以去除监听事件）
+
+    // class People {
+    //     constructor(name) {
+    //         this.name = name
+    //         this.events = {} // on emit off
+    //     }
+    //     // TODO: 请在此处完善代码
+    //     // 监听
+    //     on(event, callback) {
+    //         (this.events[event] || (this.events[event] = [])).push(callback)
+    //     }
+    //     // 解绑
+    //     off(event, callback) {
+    //         let eventArr = this.events[event]
+    //         for (let i = eventArr.length - 1; i >= 0; i--) {
+    //             if (callback === eventArr[i]) {
+    //                 eventArr.splice(i, 1)
+    //             }
+    //         }
+    //     }
+    //     // 触发
+    //     emit(event, params) {
+    //         let eventArr = this.events[event]
+    //         eventArr.forEach((callback) => {
+    //             callback(params)
+    //         })
+    //     }
+    //     sayHi() {
+    //         console.log(`Hi, I am ${this.name}`)
+    //     }
+    // }
+    // const say1 = (greeting) => {
+    //     console.log(`${greeting}, nice meeting you.`)
+    // }
+    // const say2 = (greeting) => {
+    //     console.log(`${greeting}, nice meeting you, too.`)
+    // }
+    // const jerry = new People('Jerry')
+    // jerry.sayHi()
+    // // => 输出：'Hi, I am Jerry'
+    // jerry.on('greeting', say1)
+    // jerry.on('greeting', say2)
+    // jerry.emit('greeting', 'Hi')
+    // // => 输出：'Hi, nice meeting you.' 和 'Hi, nice meeting you, too'
+    // jerry.off('greeting', say1)
+    // jerry.emit('greeting', 'Hi')
+    // // => 输出：'Hi, nice meeting you, too'
+
+
+
+
+    // 题目2：完成 sleep 函数，可以达到下面的效果：
+    const sleep = (time) => {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                console.log('3秒后进来')
+                resolve()
+            }, time)
+        })
+    }
+    const anyFunc = async () => {
+        console.log("123") // 输出 123
+        await sleep(3000) // 暂停 300 毫秒
+        console.log("456") // 输出 456，但是距离上面输出的 123 时间上相隔了 300 毫秒
+    }
+    anyFunc()
+
+
+
+
+
+
+    // 3、generate的yeild：记住语法糖的使用即可
+    // function* Gen() {
+    //     new Promise((resolve) => {
+    //         setTimeout(() => {
+    //             console.log(123)
+    //             resolve()
+    //         }, 1000)
+    //     })
+    //     yield;
+    //     new Promise((resolve) => {
+    //         setTimeout(() => {
+    //             console.log(456)
+    //             resolve()
+    //         }, 1000)
+    //     })
+    // }
+    // var g = Gen();
+    // g.next()
+    // g.next()
+
+
+
+    // 4、实现对象的map方法
+    // 注意map函数：当数值为引用类型时，是会改变原数组的
+    
+    // var objMap1 = (obj, fn) => {
+    //     if (typeof fn !== "function") {
+    //         throw new TypeError(`${fn} is not a function !`);
+    //     }
+    //     console.log(JSON.parse(JSON.stringify(obj, fn)))
+    //     return JSON.parse(JSON.stringify(obj, fn));
+    // };
+    // var res = objMap1(targetData1, (key, value) => {
+    //     return value * 3;
+    // });
+    // console.log(res)
+    var targetData1 = {
+        a: 2,
+        b: 3,
+        c: 4,
+        d: 5
+    };
+    Object.prototype.Map = function (fn){
+        if (typeof(fn) !== 'function') {
+            throw new Error('传进来不是函数')
+        }
+        let obj = this, res = {}
+        for (let key in obj) {
+            if (obj.hasOwnProperty.call(obj, key)) {
+                res[key] = fn(key, obj[key], obj)
+            }
+        }
+        return res
+    }
+
+    // 实现对象的 Map 函数类似 Array.prototype.map
+    // Object.prototype.Map = function (fn) {
+    //     if (fn && typeof fn !== 'function') {
+    //         throw Error(`${fn} require type: function`)
+    //     }
+    //     let target = this,
+    //         res = {}
+    //     for (const key in target) {
+    //         if (Object.hasOwnProperty.call(target, key)) {
+    //             res[key] = fn(key, target[key], target)
+    //         }
+    //     }
+    //     return res
+    // }
+    const targetData2 = targetData1.Map((key, value) => {
+        return value + 2
+    })
+    console.log(targetData2)
+
+
+</script>

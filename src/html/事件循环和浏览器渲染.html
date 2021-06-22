@@ -1,0 +1,25 @@
+<html>
+<body>
+    <h2>Hello</h2>
+    <script>
+    function printH2() {
+        console.log('first script', document.querySelectorAll('h2'));
+    }
+    printH2()
+    setTimeout(printH2)
+    </script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.4/css/bootstrap.css">
+    <h2>World</h2>
+    <script>
+    console.log('second script');
+    </script>
+    <!-- 这个demo的效果是：控制台先打印出来了printH2()，
+        setTimeout(printH2)的结果(说明此时的DOMtree已经完成)，
+        然后浏览器显示了页面，页面完全显示之后(RenderTree完成)才执行了 
+        console.log('second script');
+    有个地方不明白，就是js的异步任务与UI线程之间的调度，
+    这个demo的结果来看，DOM节点渲染之后生成DOMtree才开始执行 
+    setTimeout(printH2)的printH2函数，所以打印出了两个h2节点。
+    博主能帮忙解答一下UI线程和异步任务之间的关系到底是怎么样的吗？或者对于这一块有什么好的文章学习吗 -->
+</body>
+</html>

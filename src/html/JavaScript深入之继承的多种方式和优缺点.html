@@ -1,0 +1,57 @@
+<!--  -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title></title>
+</head>
+<body></body>
+</html>
+<script>
+    // 1、原型链继承
+    // function Parent () {
+    //     this.name = 'lsm'
+    //     this.getName = () => {
+    //         console.log(this.name)
+    //     }
+    // }
+    // par1 作为Parent的子类，并继承Parent构造函数的方法及属性
+    // var par1 = new Parent()
+    // par1.name = 'hml'
+    // par1.getName()
+
+    // function Child () {}
+    // Child.prototype = new Parent()
+    // var child1 = new Child()
+    // child1.getName()
+    // 结论1：此时的引用类型会被共享
+    // 结论2：在创建Child时，不能向Parent传参
+
+
+    // 换个文档看吧，上面的那个太难了，没看懂
+    function Person (name, age) {
+        this.name = name || 'kong'
+        this.age = age || 0
+
+        this.hobbies = ['music','reading']
+    }
+    function Student (name, age) {
+        Person.call(this, name, age) // 解决继承引用类型共享的问题，将prototype继承改为在子类执行父类的构造函数
+        // Person.call(this)
+        this.name = name
+        this.score = 80
+    }
+    // Student.prototype = new Person()
+    
+    
+    var stu1 = new Student('luoshimin', 18)
+    var stu2 = new Student('luoshimin1', 19)
+    var per1 = new Person()
+    var per2 = new Person()
+    stu1.hobbies.push('basketball')
+
+    console.log(stu1)
+    console.log(stu2)
+    console.log(per1) 
+    console.log(per2) 
+</script>

@@ -1,0 +1,40 @@
+<!--  -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title></title>
+</head>
+<body></body>
+</html>
+<script>
+    /*
+    相关笔记：
+    i:忽略大小写
+    m:多行匹配
+    g:全局
+    */
+
+    //1、 g 是可省的
+    // 代码编译的适合就会生成
+    const reg1 = /aaaa/
+    const reg2 = /aaaa/g
+
+    // 第二个参数也是可省的
+    // 代码运行的适合生成
+    const reg3 = new RegExp('xyz', 'g')
+
+
+    // 2、regExp对象里面有什么
+    const reg4 = /abc/img
+    reg4.ignoreCase // true
+    reg4.multiline // true
+    reg4.global // true
+    reg4.source // abc
+    reg4.lastIndex // 0
+
+    // 3、test方法：
+    // 返回：布尔值
+    // 注意点：若使用了g匹配模式，则每次test的方法
+    
+</script>

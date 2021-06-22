@@ -114,3 +114,5 @@ function run3() {
 Promise.race([run1(),run2(),run3()]).then((res)=> {
     console.log(res)
 })
+
+

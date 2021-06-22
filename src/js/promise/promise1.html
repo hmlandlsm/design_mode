@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title></title>
+</head>
+<body></body>
+</html>
+<script>
+    // Promise.resolve(Promise.reject()).then(console.log)*n个.catch(console.log)*m个
+    // Promise.resolve(Promise.reject())
+    // .then(console.log(1))
+    // .then(console.log(2))
+    // .then(console.log(3))
+    // .then(console.log(4))
+    // .then(console.log(5))
+    // .catch(e => {
+    //     console.log('a')
+    // })
+    // .catch(e => {
+    //     console.log('b')
+    // })
+    // .catch(e => {
+    //     console.log('c')
+    // })
+    // .catch(e => {
+    //     console.log('d')
+    // })
+    // console.log(1121)
+    Promise.resolve(Promise.reject('error'))
+    .then(console.log())
+    .then(console.log())
+    .then(console.log())
+    .then(console.log())
+    .then(console.log())
+    .catch(console.log('???'))
+    .catch(e => {
+        console.log('a', e)
+    })
+    .catch(e => {
+        console.log('b', e)
+    })
+    .catch(e => {
+        console.log('c', e)
+    })
+    .catch(e => {
+        console.log('d', e)
+    })
+</script>

@@ -1,0 +1,27 @@
+<!--  -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title></title>
+</head>
+
+<body></body>
+
+</html>
+<script>
+    // enumerable属性值为false时，该属性不可枚举
+    var o = { a: 1, b: 2 }
+    o.c = 3
+    Object.defineProperty(o, 'd', {
+        value: 4,
+        enumerable: false
+    })
+    // o.d
+    for (let key in o) {
+        // console.log(o[key])
+    }
+    JSON.stringify(o)
+    Object.keys(o)
+</script>

@@ -1,0 +1,62 @@
+<!--  -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title></title>
+</head>
+<body>
+    <div style="position: relative; height: 200px;width: 500px;">
+        <div style="height: 20px; width: 50px;">
+            <div style="position: absolute; padding-top: 10%;"></div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    // 对象引用同一个地址
+    const objA = {
+        name: 'luoshimin',
+        age: 18
+    }
+    const objB = objA
+    objB.name = 'huangmingliang'
+    objB.age = '19'
+    // objA === objB true
+
+    // var const let和for循环，同步异步
+    // for (let i=0;i<2;i++) {
+    //     console.log(i)
+    //     setTimeout(() => { console.log(i) }, 100)
+    // }
+    // 自我执行的函数内部参数没有了值
+    for (var i=0; i<2; i++) {
+        (function(i) {
+            setTimeout(function(i) {
+                console.log(i)
+            })
+        })(i)
+    }
+    // i的值还是存在了
+    for (var i=0;i<2;i++) {
+        const fn = (i) => {
+            setTimeout(() => { console.log(i) }, 0)
+        }
+        fn(i)
+    }
+
+    // 函数 原型
+    function Staff (name) {
+        this.name = 'luoshimin'
+    }
+    const hunter = new Staff('hunter')
+
+    const StaffA = (name) => {
+        this.name = name
+    }
+    // new 的过程发生了什么
+    // 算法
+    // 链表
+    // 时间复杂度和空间复杂度
+    // vue源码的算法
+</script>
