@@ -1,0 +1,57 @@
+<!-- flex的使用 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title></title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .box {
+        width: 200px;
+        height: 200px;
+    }
+
+    .dashed {
+        height: 1px;
+        background: linear-gradient(to right, #000000, #000000 5px, transparent 5px, transparent);
+        background-size: 10px 100%;
+    }
+
+    .tri {
+        width: 6px;
+        height: 6px;
+        background: linear-gradient(to top, red, green) no-repeat, linear-gradient(to right, #ddd, #ddd) no-repeat, linear-gradient(135deg, #fff, #fff 6px, hsla(0, 0%, 100%, 0) 6px) no-repeat;
+        background-size: 6px 1px, 1px 6px, 6px 6px;
+        transform: rotate(-45deg);
+    }
+    .minus {
+    background-image: linear-gradient(to top, #666, #666);
+    background-size: 10px 2px;
+}
+</style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="dashed"></div>
+        <div class="tri"></div>
+        <div class="minus"></div>
+    </div>
+    
+</body>
+
+</html>
+<!-- <script src='./index.js'></script> -->
