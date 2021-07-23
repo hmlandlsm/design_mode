@@ -1,14 +1,11 @@
 <!--  -->
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset='utf-8'>
     <title></title>
 </head>
-
 <body></body>
-
 </html>
 <script>
     // 实现引用类型函数的深拷贝
@@ -42,38 +39,6 @@
     }
     return target;
   }
-
-
-    // function deepClone(data) {
-    //     let res = Array.isArray(data) ? [] : {};
-    //     if (typeof (data) === 'object') {
-    //         for (var key in data) {
-    //             if (typeof (data[key]) === 'object') {
-    //                 res[key] = (function deepClone(data) {
-    //                     let res = Array.isArray(data) ? [] : {};
-    //                     if (typeof (data) === 'object') {
-    //                         for (var key in data) {
-    //                             if (typeof (data[key]) === 'object') {
-    //                                 res[key] = deepClone(data[key]);
-    //                             } else {
-    //                                 res[key] = data[key];
-    //                             }
-    //                         }
-    //                     } else if (typeof (data[key]) === 'function') {
-    //                         res[key] = new data().constructor;
-    //                     }
-    //                     return res;
-    //                 })(data[key])
-    //             } else {
-    //                 res[key] = data[key];
-    //             }
-    //         }
-    //     } else if (typeof (data[key]) === 'function') {
-    //         res[key] = new data().constructor;
-    //     }
-    //     return res;
-    // }
-
 
     let obj = { a: 1, b: 2, c: { cc: 33, dd: 44, ff: { fff: 555, eee: { eeee: 6666 } } } };
     let newObj = deepClone(obj);

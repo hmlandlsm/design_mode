@@ -1,0 +1,42 @@
+@import '@/style/app.base.scss';
+.progress{
+	position: relative;
+	box-sizing: border-box;
+	width: 100%;
+	height: calculate(20);
+	z-index: 4;
+	&:after{
+		content: "";
+		width: 100%;
+		position: absolute;
+		top: calculate(14);
+		left: 0;
+		height: 4px;
+		background-color: rgba(255, 255, 255, .3);
+		border-radius: 10px;
+		z-index: 1;
+	}
+	.bar{
+		position: absolute;
+		top: calculate(14);
+		left: 0;
+		height: 2px;
+		background-color: #FFF;
+		border-radius: 10px;
+		z-index: 2;
+	}
+	.circle{
+		// position: absolute;
+		// box-sizing: border-box;
+		// top: 0;
+		// height: calculate(10);
+		// width: calculate(10);
+		// margin: calculate(10);
+		// margin-left: 0;
+		// border-radius: 50%;
+		// background-color: #FFF;
+		// box-shadow: 0 3px 10px rgba(0, 0, 0, 0.30);
+		// border: 1px solid #FFF;
+		// z-index: 3;
+	}
+}

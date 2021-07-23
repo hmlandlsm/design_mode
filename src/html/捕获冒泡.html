@@ -1,0 +1,33 @@
+<!--  -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title></title>
+</head>
+<body>
+    <div>
+        <ul>
+            <li>捕获、冒泡</li>
+        </ul>
+    </div>
+</body>
+</html>
+<script>
+    var html = document.documentElement,
+    body = document.body,
+    div = document.querySelector('div'),
+    ul = document.querySelector('ul'),
+    li = document.querySelector('li');
+
+    html.addEventListener('click', callback, true)
+    body.addEventListener('click', callback, true)
+    div.addEventListener('click', callback, true)
+    ul.addEventListener('click', callback, true)
+    li.addEventListener('click', callback, true)
+    
+    function callback (event) {
+        event.stopPropagation()
+        console.log('callback,', event.currentTarget.tagName, event)
+    }
+</script>

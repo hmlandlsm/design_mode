@@ -1,0 +1,70 @@
+@import '@/style/app.base.scss';
+.gj-vedio{
+	width: 100%;
+  position: relative;
+  height:  calculate(210);
+	font-size: 0;
+	background-color: #000;
+	border-radius: 5px;
+	.cover {
+		width: 100%;
+		height: 100%;
+	}
+	.top-vedio{
+		height: calculate(210);
+		object-fit: fill;
+	}
+	.vedio-mask{
+		position: absolute;
+		top: 0;
+		height: calculate(210);
+		width: 100%;
+		z-index: 3;
+		transform: translate3d(0, 0, 0);
+		.play-btn{
+			width: calculate(18);
+			margin-right: calculate(10);
+		}
+		.play-btn-middle {
+			position: absolute;
+			top: 40%;
+			left: 50%;
+			width: calculate(42);
+			height: calculate(42);
+			transform: translate3d(-50%, -50%, 0);
+		}
+		.handle-bar{
+			position: absolute;
+			bottom: 0;
+      left: 0;
+			width: 100%;
+			padding: calculate(1) calculate(15) calculate(15);
+      align-items: center;
+      z-index: 3;
+			span{
+				font-size: calculate(12);
+				color: #FFF;
+				font-family: PingFangSC-Semibold, PingFang SC, sans-serif;
+				font-weight: 600;
+			}
+			.btn img{
+				width: calculate(18);
+				margin-left: calculate(10);
+			}
+		}
+		.middle{
+			position: absolute;
+			bottom: calculate(43);
+			width: 100%;
+			padding: 0 calculate(15);
+		}
+		.double-btn {
+			width: calculate(30);
+			height: calculate(15);
+			@include flex_c;
+			color: #fff;
+			font-size: calculate(10);
+			border: 1px solid #fff;
+		}
+	}
+}

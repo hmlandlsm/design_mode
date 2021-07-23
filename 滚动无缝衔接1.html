@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title></title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul,
+    li {
+        list-style: none;
+    }
+
+    #box {
+        width: 900px;
+        height: 90px;
+        overflow: hidden;
+        border: 1px solid red;
+    }
+</style>
+
+<body>
+    <div id="box">
+        <ul id="list1">
+            <li>星期一</li>
+            <li>星期二</li>
+            <li>星期三</li>
+            <li>星期四</li>
+            <li>星期五</li>
+            <li>星期六</li>
+            <li>星期天</li>
+        </ul>
+        <ul id="list2"></ul>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    var l1 = document.getElementById("list1");
+    var l2 = document.getElementById("list2");
+    l2.innerHTML = l1.innerHTML;//克隆list1的数据，使得list2和list1的数据一样
+    function scrollup() {
+        if (box.scrollTop >= l1.offsetHeight) { //滚动条距离顶部的值恰好等于list1的高度时，达到滚动临界点，此时将让scrollTop=0,让list1回到初始位置，实现无缝滚动
+            box.scrollTop = 0;
+        } else {
+            box.scrollTop++;
+        }
+    }
+
+    var scrollMove = setInterval(scrollup, 30);//数值越大，滚动速度越慢
+
+    //鼠标经过时，滚动停止
+    box.onmouseover = function () {
+        clearInterval(scrollMove)
+    }
+
+    //鼠标离开时，滚动继续
+    box.onmouseout = function () {
+        scrollMove = setInterval(scrollup, 800);
+    }
+</script>
