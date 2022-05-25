@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title></title>
+</head>
+
+<body></body>
+
+</html>
+<script>
+    const shape = {
+        radius: 10,
+        diameter() {
+            return this.radius * 2;
+        },
+        perimeter: () => 2 * Math.PI * this.radius
+    };
+    // 下列语句的返回值分别是什么？
+    const res1 = (diameter => diameter())(shape.diameter);
+    const res2 = (s => s.perimeter())(shape);
+    const res3 = (s => s.diameter())(shape);
+    console.log(res1, res2, res3)
+
+    // 格列佛尼亚（就是递归的意思）
+    function fib(n) {
+        if (n < 2) {
+            return n
+        }
+        return fib(n - 1) + fib(n - 2)
+    }
+    // 手写一个Promise.all()方法
+    // function Proto () {
+    //     return {
+    //         then: function () { },
+    //         catch: function () { }
+    //     }
+    // }
+    // var myPromise = new Proto()
+    // var methods = {
+    //     all: function () { },
+    //     race: function () { },
+    //     resolve: function () { },
+    //     reject: function () { }
+    // }
+    // myPromise = Object.assign(myPromise, methods)
+    // console.dir(myPromise)
+
+    
+    Promise.prototype.myAll = function (fns) {
+        const arr = Array.from(fns)
+        let resultArr = []
+        let count = 0
+        return new Promise((resolve, reject) => {
+            arr.forEach((item, index) => {
+                Promise.resolve(item)
+                .then(res => {
+                    count++
+                    resultArr[i] = res
+                    if (index === count) return resolve(resultArr)
+                })
+                .catch(e => {
+                    reject(e)
+                })
+            })
+        })
+    }
+
+
+    // Promise
+
+
+    // function getNumber() {
+    //     var p = new Promise(function (resolve, reject) {
+    //         //做一些异步操作
+    //         setTimeout(function () {
+    //             // var num = Math.ceil(Math.random() * 10); //生成1-10的随机数
+    //             var num = 9
+    //             if (num <= 5) {
+    //                 resolve(num);
+    //             }
+    //             else {
+    //                 reject('数字太大了');
+    //             }
+    //         }, 2000);
+    //     });
+    //     return p;
+    // }
+
+    // 有异常才会进入catch，不然不会进去的啦
+    // getNumber()
+    //     .then(function (data) {
+    //         console.log('resolved');
+    //         console.log(data);
+    //         // console.log(somedata); //此处的somedata未定义
+    //     }, function (data) {
+    //         console.log('rejected then');
+    //         console.log(data);
+    //         // console.log(somedata); //此处的somedata未定义
+    //     })
+    //     .catch(function (reason) {
+    //         console.log('rejected');
+    //         console.log(reason);
+    //     });
+    
+
+</script>

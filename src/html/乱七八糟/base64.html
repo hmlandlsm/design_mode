@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title></title>
+</head>
+
+<body>
+
+    <video id="video" src="src" controls="controls" x5-playsinline="" playsinline="" webkit-playsinline
+        preload="auto"></video>
+</body>
+
+</html>
+<script>
+    var video = document.getElementById("video"); // 获取视频文件
+    var canvas = document.createElement("canvas"); // 创建一个canvas元素
+    var scale = 1; // 缩放倍数
+    canvas.width = video.videoWidth * scale; // 生成canvas的宽度
+    canvas.height = video.videoHeight * scale; // 生成canvas的高度
+    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height); //video转canvas,
+
+    var img = document.createElement("img"); // 创建img元素
+    img.src = canvas.toDataURL("image/png"); // 截取视频第一帧
+    console.log(img)
+// 此时img.src就是需要的base64，可以直接放在图片的src中使用
+</script>
