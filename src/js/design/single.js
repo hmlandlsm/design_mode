@@ -9,34 +9,71 @@
 
 
 
-function CreateDiv(html) {
-    this.html = html;
-    this.init();
+function CreateDiv (html) {
+  this.html = html;
+  this.init();
 }
 
 // 创建div的方法
-CreateDiv.prototype.init = function() {
-    let div = document.createElement("div");
-    document.body.appendChild(div);
-    div.innerHTML = '11'
-    div.innerText = '22'
-    console.log(div)
+CreateDiv.prototype.init = function () {
+  let div = document.createElement("div");
+  document.body.appendChild(div);
+  div.innerHTML = '11'
+  div.innerText = '22'
+  console.log(div)
 }
 
 
 // 代理实现单例模式
-let ProxyMode = (function (){
-    let instance;
-    return function(html) {
-        if(!instance) {
-            instance = new CreateDiv()
-        }
-        return instance;
+let ProxyMode = (function () {
+  let instance;
+  return function (html) {
+    if (!instance) {
+      instance = new CreateDiv()
     }
+    return instance;
+  }
 })()
 
 let a = new ProxyMode('aaaa');
 let b = new ProxyMode('bbbb');
 console.log(a);
 console.log(b);
-console.log(a===b)
+console.log(a === b)
+
+
+handler.setInputAction(function (movement) {
+  let foundPosition = false;
+  var scene = viewer.scene;
+  if (scene.mode !== Cesium.SceneMode.MORPHING) {
+    var pickedObject = scene.pick(movement.endPosition);
+    if (scene.pickPositionSupported && Cesium.defined(pickedObject) && pickedObject.id === modelEntity) {
+      var cartesian = viewer.scene.pickPosition(movement.endPosition);
+      if (Cesium.defined(cartesian)) {
+        var cartographic = Cesium.Cartographic.fromCartesian(cartesian);
+        var latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(2);
+        labelEntity.position = cartesian;
+        labelEntity.label.show = true;
+        labelEntity.label.text =
+          "玛卡马卡 " + +
+          "\u00B0" +
+          "鬓鬓鬓鬓 " +
+          ("   " + latitudeString).slice(-7) +
+          "\u00B0" +
+          "\nAlt: ";
+
+        labelEntity.label.eyeOffset = new Cesium.Cartesian3(
+          0.0,
+          0.0,
+          -cartographic.height *
+          (scene.mode === Cesium.SceneMode.SCENE2D ? 1.5 : 1.0)
+        );
+
+        foundPosition = true;
+      }
+    }
+  }
+  if (!foundPosition) {
+    labelEntity.label.show = false;
+  }
+}, Cesium.ScreenSpaceEventType.MOUSE_MOVE);

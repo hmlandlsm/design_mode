@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title></title>
+</head>
+
+<body></body>
+
+</html>
+<script>
+    class EventEmitter {
+        constructor (name) {
+            this.name = name
+            // 存放所有事件名称及事件名对应的方法 { envet1: [fn1, fn2], event2: [fn3, fn4]}
+            this.events = {} 
+        }
+        // 监听
+        on (event, callback) {
+            (this.events[event] || (this.events[event] = [])).push(callback)
+        }
+        // 触发
+        emit (event, params) {
+            const arr = this.events[event] || []
+            arr.forEach(el => {
+                if (el === callback) {
+                    callback(params)
+                }
+            })
+        }
+        // 删除
+        delete (event, callback) {
+            const arr = this.events[event] || []
+            for (let i = arr.length-1; i>=0;i--) {
+                if (arr[i] === callback) {
+                    this.events[event].splice(i,1)
+                }
+            }
+        }
+    }
+
+</script>

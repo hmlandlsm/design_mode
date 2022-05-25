@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title></title>
+</head>
+
+<body></body>
+
+</html>
+<script src="./事件监听发送2.ts"></script>
+<script>
+  const byEvent = require('./事件监听发送2.ts');
+// 使用示例
+let o = new byEvent()
+setInterval(() => {
+  o.emit("name", 123)
+  o.emit("name", 10, 20)
+  o.emit("post", { name: 1212 }, "post")
+
+}, 1000);
+setTimeout(() => {
+  o.remove("name", function () {
+    console.log("remove")
+  })
+}, 3000)
+o.once("name", function (...res) {
+  console.log("once-name1", res)
+})
+o.on("name", function (...res) {
+  console.log("on-name2", res)
+})
+o.on("post", function (...res) {
+  console.log("on-post", res)
+})
+
+</script>

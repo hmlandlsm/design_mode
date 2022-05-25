@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title></title>
+<style>
+    html, body {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .bg {
+        width: 200px;
+        height: 200px;
+        background-image: linear-gradient(0deg,red 50%,green 50%);
+        background-size: 100% 30px;
+    }
+    .word {
+        width: 300px;
+        background-color: pink;
+    }
+</style>
+</head>
+<body>
+  <button id="clearAll" style="position:absolute;top:40px;left:20px;color:#000;">清除所有</button>
+</body>
+</html>
+<script>
+  var viewer = new Cesium.Viewer("cesiumContainer");
+
+function addBillboard() {
+  Sandcastle.declare(addBillboard);
+
+  viewer.entities.add({
+    position: Cesium.Cartesian3.fromDegrees(-15.59777, 40.03883),
+    billboard: {
+      image: "../images/Cesium_Logo_overlay.png",
+    },
+  });
+}
+
+function setBillboardProperties() {
+  Sandcastle.declare(setBillboardProperties);
+
+  viewer.entities.add({
+    position: Cesium.Cartesian3.fromDegrees(-15.59777, 40.03883),
+    billboard: {
+      image: "../images/Cesium_Logo_overlay.png", // default: undefined
+      show: false, // default
+      pixelOffset: new Cesium.Cartesian2(0, -50), // default: (0, 0)
+      eyeOffset: new Cesium.Cartesian3(0.0, 0.0, 0.0), // default
+      horizontalOrigin: Cesium.HorizontalOrigin.CENTER, // default
+      verticalOrigin: Cesium.VerticalOrigin.BOTTOM, // default: CENTER
+      scale: 2.0, // default: 1.0
+      color: Cesium.Color.LIME, // default: WHITE
+      rotation: Cesium.Math.PI_OVER_FOUR, // default: 0.0
+      alignedAxis: Cesium.Cartesian3.ZERO, // default
+      width: 100, // default: undefined
+      height: 25, // default: undefined
+    },
+  });
+}
+
+var terrainProvider;
+function disableDepthTest() {
+  Sandcastle.declare(disableDepthTest);
+
+  terrainProvider = viewer.terrainProvider;
+  viewer.terrainProvider = Cesium.createWorldTerrain();
+  viewer.scene.globe.depthTestAgainstTerrain = true;
+
+  viewer.entities.add({
+    position: Cesium.Cartesian3.fromDegrees(-122.1958, 46.1915),
+    billboard: {
+      image: "../images/facility.gif",
+      heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+      disableDepthTestDistance: Number.POSITIVE_INFINITY,
+    },
+  });
+  viewer.scene.camera.setView({
+    destination: new Cesium.Cartesian3(
+      -2357576.243142461,
+      -3744417.5604860787,
+      4581807.855903771
+    ),
+    orientation: new Cesium.HeadingPitchRoll(
+      5.9920811504170475,
+      -0.6032820429886212,
+      6.28201303164098
+    ),
+  });
+}
+
+Sandcastle.addToolbarMenu([
+  {
+    text: "Add billboard",
+    onselect: function () {
+      addBillboard();
+    },
+  }
+]);
+
+Sandcastle.reset = function () {
+  viewer.camera.flyHome(0);
+  viewer.entities.removeAll();
+
+  if (Cesium.defined(terrainProvider)) {
+    viewer.terrainProvider = terrainProvider;
+    terrainProvider = undefined;
+    viewer.scene.globe.depthTestAgainstTerrain = false;
+  }
+};
+
+document.getElementById('clearAll').onclick = function(event) {
+  console.log('点击了清除');
+  Sandcastle.reset();
+};
+
+</script>
+
+
+<script>
+  var viewer = new Cesium.Viewer("cesiumContainer");
+
+function addBillboard() {
+  Sandcastle.declare(addBillboard);
+
+  viewer.entities.add({
+    position: Cesium.Cartesian3.fromDegrees(-85.59777, 40.03883),
+    billboard: {
+      image: "../images/Cesium_Logo_overlay.png",
+    },
+  });
+}
+
+var terrainProvider;
+
+Sandcastle.addToolbarMenu([
+  {
+    text: "Add billboard",
+    onselect: function () {
+      addBillboard();
+    },
+  }
+]);
+
+Sandcastle.reset = function () {
+  viewer.camera.flyHome(0);
+  viewer.entities.removeAll();
+
+  if (Cesium.defined(terrainProvider)) {
+    viewer.terrainProvider = terrainProvider;
+    terrainProvider = undefined;
+    viewer.scene.globe.depthTestAgainstTerrain = false;
+  }
+};
+
+// 控制显隐
+
+document.getElementById('clearAll').onclick = function(event) {
+      Sandcastle.reset();
+    };
+document.getElementById('add').onclick = function(event) {
+      addBillboard();
+    };
+
+</script>
+
+<script>
+  // 添加多个点
+  var logoUrl = "../images/Cesium_Logo_overlay.png";
+
+  viewer.entities.add({
+    position: Cesium.Cartesian3.fromDegrees(-75.59777, 40.03883),
+    billboard: {
+      image: logoUrl,
+    },
+  });
+  viewer.entities.add({
+    position: Cesium.Cartesian3.fromDegrees(-180.5, 35.14),
+    billboard: {
+      image: logoUrl,
+    },
+  });
+  viewer.entities.add({
+    position: Cesium.Cartesian3.fromDegrees(-80.12, 65.46),
+    billboard: {
+      image: logoUrl,
+    },
+  });
+</script>
